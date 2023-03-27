@@ -1,0 +1,42 @@
+ <!DOCTYPE html>
+<html>
+<head>
+<title>LCC Browser example page</title>
+</head>
+<body>
+
+<h1>Introduction</h1>
+<p>This is an embedded web browser. It is showing the local file "index.html". You can use it for example to create a control panel for your LCC setup. The application provides an LCC interface in Javascript.<p>
+
+<p>
+<a href="https://github.com/ahaensler/lcc_browser">Source Code</a>
+<br />
+Adrian Haensler, 2023, MIT License
+</p>
+
+<h1>Examples</h1>
+<p>LCC events are sent like this.</p>
+<code>
+  &lt;button onClick=&quot;LCC.sendRawEvent(&#39;0123456789AB.0000&#39;);&quot;&gt;
+  <br />
+  Send event
+  <br />
+  &lt;/button&gt;
+</code>
+
+<p>Try it:</p>
+<button onClick="LCC.sendRawEvent('0123456789AB.0000');">Send event</button>
+
+<p>LCC events are received like this.</p>
+<code>
+LCC.addEventListener(&quot;raw-event&quot;, event =&gt; {<br />
+&nbsp;&nbsp;&nbsp; const eventId = event.detail;<br />
+&nbsp;&nbsp;&nbsp; const nodeId = eventId.slice(0, 2*6);<br />
+&nbsp;&nbsp;&nbsp; if (nodeId === &quot;104265632192&quot;) {<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; alert(&quot;Received Event!&quot;);<br />
+&nbsp;&nbsp;&nbsp; }<br />
+})
+</code>
+<p>Dev tools for debugging are available in the context menu.</p>
+</body>
+</html> 

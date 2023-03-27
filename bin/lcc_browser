@@ -1,0 +1,4 @@
+#!/bin/python
+import lcc_browser.gui
+
+lcc_browser.gui.start_gui()
