@@ -14,7 +14,7 @@ class Settings(dict):
         if not os.path.exists(settings_filename):
             print("No setting found at", settings_filename)
             self["node_id"] = "02.01.0D.00.00.00"
-            self["html_path"] = "index.html"
+            self["html_path"] = os.path.abspath("index.html")
             self["auto_connect"] = False
             self["can_settings"] = {}
             return

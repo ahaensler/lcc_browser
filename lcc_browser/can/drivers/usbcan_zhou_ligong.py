@@ -107,8 +107,12 @@ class UsbcanZhouLigong(Connection):
             print('lost sync?', hex(buffer[0]))
             return None
         if len(buffer) < 16:
-            print("CAN buffer length {len(buffer)} should be at least 16. Ignoring data")
-            return None
+            # partial data: give data some more time to arrive, then give up
+            sleep(.05)
+            buffer += self.ser.read(16 - len(buffer))
+            if len(buffer) < 16:
+                print(f"CAN buffer length {len(buffer)} should be at least 16. Ignoring data")
+                return None
         is_extended = buffer[1]
         is_remote = buffer[2]
         data_len = buffer[3]

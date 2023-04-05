@@ -1,4 +1,5 @@
 import wx
+import os
 from lcc_browser.wx_controls.tool_button import ToolButton
 
 class MapControl(wx.Choice):
@@ -53,18 +54,25 @@ class MapInput(wx.Panel):
 
         self.SetSizer(sizer)
 
+    def set_background_color(self, color):
+        if os.name == 'nt':
+            self.SetBackgroundColour(color)
+        else:
+            self.input.SetBackgroundColour(color)
+
     def on_choice(self, evt=None):
         if self.input.GetSelection() == wx.NOT_FOUND:
             self.GetToolTip().SetTip("Make a selection")
-            self.input.SetBackgroundColour(wx.NullColour)
+            self.set_background_color(wx.NullColour)
         else:
             is_modified = self.input.GetValue() != self.initial_value
             if is_modified:
                 self.GetToolTip().SetTip("Ready for upload to node")
-                self.input.SetBackgroundColour(wx.YELLOW)
+                self.set_background_color(wx.YELLOW)
             else:
                 self.GetToolTip().SetTip("Value present on node")
-                self.input.SetBackgroundColour(wx.NullColour)
+                self.set_background_color(wx.NullColour)
+        self.Refresh()
 
     def GetValue(self):
         return self.input.GetValue()

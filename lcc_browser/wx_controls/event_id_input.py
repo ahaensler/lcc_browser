@@ -24,6 +24,7 @@ class EventIdInput(wx.Panel):
         self.SetToolTip(wx.ToolTip(""))
         self.input.Bind(wx.EVT_CHAR, self.on_char)
         self.input.Bind(wx.EVT_TEXT, self.on_text)
+        self.input.Bind(wx.EVT_KEY_UP, self.on_text)
 
         sizer = wx.BoxSizer(wx.HORIZONTAL)
         sizer.Add(self.input)
@@ -60,6 +61,7 @@ class EventIdInput(wx.Panel):
             else:
                 self.GetToolTip().SetTip("Value present on node")
                 self.input.SetBackgroundColour(wx.NullColour)
+        self.Refresh()
 
     def SetValue(self, text):
         self.input.SetValue(text)

@@ -26,6 +26,7 @@ class StringInput(wx.Panel):
         self.SetSizer(sizer)
 
         self.input.Bind(wx.EVT_TEXT, self.on_change)
+        self.input.Bind(wx.EVT_KEY_UP, self.on_change)
         self.initial_value = None
 
     def validate(self):
@@ -44,6 +45,7 @@ class StringInput(wx.Panel):
             else:
                 self.GetToolTip().SetTip("Value present on node")
                 self.input.SetBackgroundColour(wx.NullColour)
+        self.Refresh()
 
     def SetValue(self, val):
         self.initial_value = val

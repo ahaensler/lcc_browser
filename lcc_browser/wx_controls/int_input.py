@@ -35,6 +35,7 @@ class IntInput(wx.Panel):
         self.SetSizer(sizer)
 
         self.input.Bind(wx.EVT_SPINCTRL, self.on_change)
+        self.input.Bind(wx.EVT_KEY_UP, self.on_change)
         self.default_value = default
         self.initial_value = None
 
@@ -56,6 +57,7 @@ class IntInput(wx.Panel):
             else:
                 self.GetToolTip().SetTip("Value present on node")
                 self.input.SetBackgroundColour(wx.NullColour)
+        self.Refresh()
 
     def SetValue(self, val):
         self.initial_value = val

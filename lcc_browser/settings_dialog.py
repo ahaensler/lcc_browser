@@ -2,6 +2,7 @@ from lcc_browser.templates.settings import SettingsDialogTemplate
 import wx
 import os
 from urllib.parse import urlparse
+from urllib.request import url2pathname
 import pathlib
 from lcc_browser.lcc.lcc_protocol import id_to_bytes
 
@@ -41,8 +42,12 @@ class SettingsDialog(SettingsDialogTemplate):
         self.node_id.SetValidator(NodeIdValidator())
         self.node_id.SetValue(settings.get("node_id"))
         self.html_path.SetValidator(FilenameValidator())
+        print(settings.get("html_path"))
         p = urlparse(settings.get("html_path"))
-        html_path = os.path.abspath(os.path.join(p.netloc, p.path))
+        html_path = url2pathname(p.path) # fix leading slash in Windows
+        html_path = os.path.abspath(os.path.join(p.netloc, html_path))
+        print(p.netloc, p.path)
+        print(html_path)
         self.html_path.SetValue(html_path)
         self.auto_connect.SetValue(settings.get("auto_connect", False))
 
